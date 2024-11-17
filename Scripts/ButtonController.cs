@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-
     private SpriteRenderer theSR;
     public Sprite defaultImage;
     public Sprite pressedImage;
-
     public KeyCode keyToPress;
-
 
     void Start()
     {
         theSR = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(keyToPress))
         {
-            theSR.sprite = pressedImage;
+            OnKeyPress();
         }
         if (Input.GetKeyUp(keyToPress))
         {
             theSR.sprite = defaultImage;
         }
-        }
-
     }
 
+    public void OnKeyPress()
+    {
+        Debug.Log("Tecla presionada: " + keyToPress);
+        theSR.sprite = pressedImage;
+    }
+}
