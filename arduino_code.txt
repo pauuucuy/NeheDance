@@ -1,0 +1,76 @@
+const int piezoPin1 = 14;
+const int piezoPin2 = 27;
+const int piezoPin3 = 26;
+const int piezoPin4 = 25;
+const int threshold = 700; 
+
+unsigned long lastDebounceTime1 = 0;
+unsigned long lastDebounceTime2 = 0;
+unsigned long lastDebounceTime3 = 0;
+unsigned long lastDebounceTime4 = 0;
+bool piezo1State = false;
+bool piezo2State = false;
+bool piezo3State = false;
+bool piezo4State = false;
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  int piezoValue1 = analogRead(piezoPin1);
+  int piezoValue2 = analogRead(piezoPin2);
+  int piezoValue3 = analogRead(piezoPin3);
+  int piezoValue4 = analogRead(piezoPin4);
+  unsigned long currentTime = millis();
+
+  if (piezoValue1 > threshold) {
+    if ((currentTime - lastDebounceTime1) > debounceDelay) {
+      if (!piezo1State) {
+        Serial.println("A");
+        piezo1State = true;
+      }
+      lastDebounceTime1 = currentTime;
+    }
+  } else {
+    piezo1State = false;
+  }
+
+  if (piezoValue2 > threshold) {
+    if ((currentTime - lastDebounceTime2) > debounceDelay) {
+      if (!piezo2State) {
+        Serial.println("S");
+        piezo2State = true;
+      }
+      lastDebounceTime2 = currentTime;
+    }
+  } else {
+    piezo2State = false;
+  }
+
+  if (piezoValue3 > threshold) {
+    if ((currentTime - lastDebounceTime3) > debounceDelay) {
+      if (!piezo3State) {
+        Serial.println("D");
+        piezo3State = true;
+      }
+      lastDebounceTime3 = currentTime;
+    }
+  } else {
+    piezo3State = false;
+  }
+
+  if (piezoValue4 > threshold) {
+    if ((currentTime - lastDebounceTime4) > debounceDelay) {
+      if (!piezo4State) {
+        Serial.println("F");
+        piezo4State = true;
+      }
+      lastDebounceTime4 = currentTime;
+    }
+  } else {
+    piezo4State = false;
+  }
+
+  delay(10); 
+}
