@@ -1,0 +1,33 @@
+Create database NehePlay;
+use NehePlay; 
+
+create table estudiante (
+	id_estudiante int primary key auto_increment null,
+    nombre varchar (55) not null,
+    apellido varchar (55) not null,
+    edad int not null, 
+    correo varchar (55) not null,
+    contraseña varchar (255) not null, 
+    id_usuario varchar (55) not null,
+    id_cargo int not null
+);
+
+create table comentarios (
+	id_comentario int primary key auto_increment not null,
+    comentario varchar (3000) not null,
+	id_estudiante int not null,
+    foreign key (id_estudiante) references estudiante (id_estudiante)
+);
+
+create table rol (
+	id_rol int primary key,
+    rol varchar (55)
+);
+
+update estudiante set id_cargo = 2 where correo = 'admin@gmail.com';
+
+select * from rol; 
+select * from estudiante; 
+select * from comentarios; 
+drop table estudiante;
+drop table rol;
